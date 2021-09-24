@@ -8,31 +8,26 @@ do {
     name = prompt('Please enter your name: ')
 } while (!name)
 
-
 textArea.addEventListener('keyup', (e) => {
-
     if (e.key === 'Enter') {
         sendMessage(e.target.value)
     }
 })
 
 function sendMessage(message) {
-
     let msg = {
         user: name,
         message: message.trim()
     }
-    // Append
+    // APPEND
     appendMessage(msg, 'outgoing')
     textArea.value = "";
     scrollToBottom();
-    // send to server 
+    // SEND MESSAGE TO SERVER
     socket.emit('message', msg)
-
 }
 
 function appendMessage(msg, type) {
-
     let mainDiv = document.createElement('div');
     let className = type
     mainDiv.classList.add(className, 'message');
@@ -43,21 +38,13 @@ function appendMessage(msg, type) {
     `
     mainDiv.innerHTML = markUp;
     messageArea.appendChild(mainDiv);
-
 }
 
-
-
-
-// recive msg
-
-
+//  RECIVE MESSAGE 
 socket.on('message', (msg) => {
     appendMessage(msg, 'incoming')
     scrollToBottom();
 });
-
-
 function scrollToBottom() {
     messageArea.scrollTop = messageArea.scrollHeight
 }
